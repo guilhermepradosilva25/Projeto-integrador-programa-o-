@@ -69,7 +69,6 @@
     border-radius: 4px;
   }
 
-  /* ========== ANIMAÇÕES DE ENTRADA ========== */
   .reveal {
     opacity: 0;
     transform: translateY(40px);
@@ -88,13 +87,11 @@
   .reveal-escala { transform: scale(0.8); }
   .reveal-escala.visivel { transform: scale(1); }
 
-  /* Delay escalonado para cards */
   .card.reveal:nth-child(1) { transition-delay: 0s; }
   .card.reveal:nth-child(2) { transition-delay: 0.1s; }
   .card.reveal:nth-child(3) { transition-delay: 0.2s; }
   .card.reveal:nth-child(4) { transition-delay: 0.3s; }
 
-  /* ========== HEADER ========== */
   header {
     position: sticky;
     top: 0;
@@ -182,7 +179,6 @@
 
   .menu-toggle { display: none; }
 
-  /* ========== HERO ========== */
   .hero {
     background: linear-gradient(135deg, var(--azul-claro), var(--azul-medio));
     color: var(--branco);
@@ -256,7 +252,6 @@
     color: var(--branco);
   }
 
-  /* ========== SEÇÕES ========== */
   section {
     padding: 4rem 1.5rem;
     max-width: 1200px;
@@ -291,7 +286,6 @@
     font-size: 1.1rem;
   }
 
-  /* ========== CARDS ========== */
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -334,7 +328,6 @@
     font-size: 1.3rem;
   }
 
-  /* ========== ÓPTICA ========== */
   .optica-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -370,7 +363,6 @@
     justify-content: center;
   }
 
-  /* ========== SIMULADOR ========== */
   .simulador {
     background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
     padding: 3rem 2rem;
@@ -476,7 +468,6 @@
 
   .temp-label { font-size: 0.9rem; opacity: 0.8; }
 
-  /* ========== FLUXOGRAMA ========== */
   .fluxograma {
     display: flex;
     flex-direction: column;
@@ -514,7 +505,6 @@
 
   .seta { font-size: 1.5rem; color: var(--azul-medio); }
 
-  /* ========== GRÁFICO ========== */
   .grafico-container {
     background: var(--cinza-card);
     padding: 2rem;
@@ -569,7 +559,6 @@
     color: var(--azul-profundo);
   }
 
-  /* ========== QUIZ ========== */
   .quiz-container {
     background: var(--cinza-card);
     padding: 2.5rem;
@@ -767,7 +756,6 @@
     color: var(--cinza-texto);
   }
 
-  /* ========== ACESSIBILIDADE ========== */
   .acessibilidade-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -787,7 +775,6 @@
   .acess-item .icone { font-size: 2.5rem; margin-bottom: 0.5rem; }
   .acess-item h4 { color: var(--azul-profundo); margin-bottom: 0.5rem; }
 
-  /* ========== LIBRAS ========== */
   .libras-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -853,7 +840,6 @@
 
   body.modo-escuro .libras-badge { color: #0f0f1e; }
 
-  /* ========== IMPACTO ========== */
   .impacto {
     background: linear-gradient(135deg, var(--azul-profundo), var(--azul-medio));
     color: var(--branco);
@@ -893,7 +879,6 @@
     display: block;
   }
 
-  /* ========== BOTÃO FLUTUANTE PDF ========== */
   .btn-pdf-float {
     position: fixed;
     bottom: 25px;
@@ -927,7 +912,6 @@
     color: var(--cinza-texto);
   }
 
-  /* ========== FOOTER ========== */
   footer {
     background: var(--azul-profundo);
     color: var(--branco);
@@ -938,7 +922,6 @@
   body.modo-escuro footer { background: #0a0a1a; }
   footer p { margin: 0.3rem 0; }
 
-  /* ========== RESPONSIVIDADE ========== */
   @media (max-width: 768px) {
     .menu-toggle { display: block; }
 
@@ -984,7 +967,6 @@
 
   .skip-link:focus { top: 0; }
 
-  /* ========== IMPRESSÃO / PDF ========== */
   @media print {
     header, .btn-pdf-float, .demo-controls, .controles,
     .quiz-botoes, .menu-toggle, .theme-toggle, .libras-video { display: none !important; }
@@ -1017,7 +999,6 @@
 
 <a href="#conteudo" class="skip-link">Pular para o conteúdo principal</a>
 
-<!-- ========== HEADER ========== -->
 <header>
   <div class="nav-container">
     <div class="logo">
@@ -1045,7 +1026,6 @@
   </div>
 </header>
 
-<!-- ========== HERO ========== -->
 <main id="conteudo">
 <section class="hero" aria-labelledby="titulo-hero">
   <div class="hero-content">
@@ -1055,7 +1035,6 @@
   </div>
 </section>
 
-<!-- ========== PROJETO ========== -->
 <section id="projeto" aria-labelledby="titulo-projeto">
   <h2 id="titulo-projeto" class="reveal">💡 O Desafio</h2>
   <p class="section-intro reveal">Aquecer uma piscina de forma eficiente e sustentável exige muito mais do que apenas energia: exige <strong>conhecimento científico</strong> e <strong>tecnologia inteligente</strong>.</p>
@@ -1084,7 +1063,6 @@
   </div>
 </section>
 
-<!-- ========== ÓPTICA ========== -->
 <section id="optica" aria-labelledby="titulo-optica">
   <h2 id="titulo-optica" class="reveal">🔆 Óptica Aplicada ao Aquecimento</h2>
   <p class="section-intro reveal">A luz solar é composta por todas as cores do espectro visível. Entender como a luz interage com os materiais é a chave para coletores solares eficientes.</p>
@@ -1111,7 +1089,6 @@
   </div>
 </section>
 
-<!-- ========== SIMULADOR ========== -->
 <section id="simulador" aria-labelledby="titulo-simulador">
   <h2 id="titulo-simulador" class="reveal">🎮 Simulador Interativo</h2>
   <p class="section-intro reveal">Ajuste os parâmetros e veja como a temperatura da piscina se comporta em tempo real!</p>
@@ -1144,7 +1121,6 @@
   </div>
 </section>
 
-<!-- ========== ROBÓTICA ========== -->
 <section id="robotica" aria-labelledby="titulo-robotica">
   <h2 id="titulo-robotica" class="reveal">🤖 Robótica e Programação</h2>
   <p class="section-intro reveal">O sistema é controlado por um <strong>microcontrolador (Arduino/ESP32)</strong> que lê sensores e aciona atuadores automaticamente.</p>
@@ -1186,7 +1162,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
   </div>
 </section>
 
-<!-- ========== QUIZ ========== -->
 <section id="quiz" aria-labelledby="titulo-quiz">
   <h2 id="titulo-quiz" class="reveal">🧠 Quiz: Teste seus Conhecimentos</h2>
   <p class="section-intro reveal">Você prestou atenção nos conceitos de óptica? Responda às 5 perguntas e descubra!</p>
@@ -1218,7 +1193,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
   </div>
 </section>
 
-<!-- ========== GRÁFICO ========== -->
 <section id="economia" aria-labelledby="titulo-economia">
   <h2 id="titulo-economia" class="reveal">📊 Economia Mensal Projetada</h2>
   <p class="section-intro reveal">Veja a projeção de economia de energia elétrica e redução de CO₂ ao longo de 12 meses com o sistema AquaSolar.</p>
@@ -1243,7 +1217,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
   </div>
 </section>
 
-<!-- ========== ACESSIBILIDADE ========== -->
 <section id="acessibilidade" aria-labelledby="titulo-acess">
   <h2 id="titulo-acess" class="reveal">♿ Acessibilidade Digital</h2>
   <p class="section-intro reveal">Nosso site foi desenvolvido seguindo as boas práticas de <strong>acessibilidade web (WCAG 2.1)</strong> para que TODOS possam navegar.</p>
@@ -1282,7 +1255,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
   </div>
 </section>
 
-<!-- ========== LIBRAS ========== -->
 <section id="libras" aria-labelledby="titulo-libras">
   <h2 id="titulo-libras" class="reveal">🤟 Conteúdo em Libras</h2>
   <p class="section-intro reveal">Acreditamos que a informação deve ser <strong>acessível a todos</strong>, incluindo a comunidade surda.</p>
@@ -1326,7 +1298,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
   </div>
 </section>
 
-<!-- ========== IMPACTO ========== -->
 <section id="impacto" class="impacto reveal" aria-labelledby="titulo-impacto">
   <h2 id="titulo-impacto">🌍 Inovação e Impacto Social</h2>
   <p style="max-width: 800px; margin: 1rem auto; font-size: 1.1rem;">
@@ -1354,10 +1325,8 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
 </section>
 </main>
 
-<!-- ========== BOTÃO PDF FLUTUANTE ========== -->
 <button class="btn-pdf-float" id="btnPdfFloat" aria-label="Baixar projeto em PDF" title="Baixar PDF">📄</button>
 
-<!-- ========== FOOTER ========== -->
 <footer>
   <p><strong>🌊 AquaSolar CEP</strong> — Projeto Integrador 2026</p>
   <p>Desenvolvido com 💙 pela equipe de Tecnologia da Escola CEP</p>
@@ -1367,7 +1336,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
 </footer>
 
 <script>
-  // ========== MENU MOBILE ==========
   const menuBtn = document.getElementById('menuBtn');
   const menuNav = document.getElementById('menuNav');
 
@@ -1383,7 +1351,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
     });
   });
 
-  // ========== MODO ESCURO ==========
   const themeToggle = document.getElementById('themeToggle');
   const body = document.body;
 
@@ -1402,7 +1369,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
     localStorage.setItem('tema', escuro ? 'escuro' : 'claro');
   });
 
-  // ========== ANIMAÇÕES DE SCROLL ==========
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1414,7 +1380,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
 
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  // ========== DISCO DE NEWTON ==========
   const disco = document.getElementById('discoNewton');
   const btnGirar = document.getElementById('btnGirar');
   const btnParar = document.getElementById('btnParar');
@@ -1434,7 +1399,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
     }, 500);
   });
 
-  // ========== SIMULADOR ==========
   const radiacao = document.getElementById('radiacao');
   const corColetor = document.getElementById('corColetor');
   const tempAmbiente = document.getElementById('tempAmbiente');
@@ -1481,7 +1445,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
   });
   calcularTemp();
 
-  // ========== QUIZ INTERATIVO ==========
   const perguntas = [
     {
       pergunta: "Quando o Disco de Newton gira rapidamente, as 7 cores se fundem e nosso olho percebe qual cor?",
@@ -1613,7 +1576,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
 
   carregarPergunta();
 
-  // ========== GRÁFICO ==========
   const canvas = document.getElementById('graficoEconomia');
   const ctx = canvas.getContext('2d');
 
@@ -1707,7 +1669,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
   const observerTema = new MutationObserver(() => desenharGrafico());
   observerTema.observe(body, { attributes: true, attributeFilter: ['class'] });
 
-  // ========== CONTADOR ANIMADO ==========
   const stats = document.querySelectorAll('.stat-numero');
 
   const observerStats = new IntersectionObserver((entries) => {
@@ -1733,7 +1694,6 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
 
   stats.forEach(stat => observerStats.observe(stat));
 
-  // ========== LIBRAS PLACEHOLDER ==========
   document.querySelectorAll('.libras-video').forEach(video => {
     const handleClick = () => {
       alert('🤟 Este é um espaço reservado para o vídeo em Libras.\n\nPeça à equipe para gravar os vídeos e substituir pelo elemento <video>.');
@@ -1747,11 +1707,8 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
     });
   });
 
-  // ========== BOTÃO PDF ==========
   function baixarPDF() {
-    // Força todas as animações a aparecerem antes da impressão
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('visivel'));
-    // Pequeno delay para as animações terminarem
     setTimeout(() => {
       window.print();
     }, 300);
