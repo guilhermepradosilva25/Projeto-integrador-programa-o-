@@ -1,1 +1,1765 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Projeto Integrador CEP: Sistema sustentável de aquecimento de piscina térmica com óptica aplicada, robótica e acessibilidade digital.">
+<title>AquaSolar CEP | Aquecimento Sustentável da Piscina</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --azul-profundo: #023e8a;
+    --azul-medio: #0077b6;
+    --azul-claro: #00b4d8;
+    --ciano: #90e0ef;
+    --amarelo-sol: #ffb703;
+    --laranja: #fb8500;
+    --branco: #ffffff;
+    --cinza-claro: #f8f9fa;
+    --cinza-texto: #212529;
+    --cinza-card: #ffffff;
+    --fundo-body: #f8f9fa;
+    --sombra: 0 8px 24px rgba(2, 62, 138, 0.15);
+    --sombra-forte: 0 12px 32px rgba(2, 62, 138, 0.25);
+    --transicao: 0.3s ease;
+    --header-bg: linear-gradient(135deg, var(--azul-profundo), var(--azul-medio));
+    --header-text: #ffffff;
+    --code-bg: #1e293b;
+    --code-text: #e2e8f0;
+    --verde: #2a9d8f;
+    --vermelho: #e63946;
+  }
+
+  body.modo-escuro {
+    --azul-profundo: #90e0ef;
+    --azul-medio: #48cae4;
+    --azul-claro: #00b4d8;
+    --amarelo-sol: #ffd60a;
+    --laranja: #ff9e00;
+    --branco: #1a1a2e;
+    --cinza-claro: #0f0f1e;
+    --cinza-texto: #e8e8f0;
+    --cinza-card: #1e1e32;
+    --fundo-body: #0f0f1e;
+    --sombra: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --sombra-forte: 0 12px 32px rgba(0, 0, 0, 0.7);
+    --header-bg: linear-gradient(135deg, #0a0a1a, #1a1a2e);
+    --header-text: #e8e8f0;
+    --code-bg: #0a0a1a;
+    --code-text: #a5f3fc;
+    --verde: #52b788;
+    --vermelho: #ff6b6b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.7;
+    color: var(--cinza-texto);
+    background: var(--fundo-body);
+    font-size: 1.05rem;
+    transition: background var(--transicao), color var(--transicao);
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 3px solid var(--amarelo-sol);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* ========== ANIMAÇÕES DE ENTRADA ========== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visivel {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-esquerda { transform: translateX(-50px); }
+  .reveal-direita { transform: translateX(50px); }
+  .reveal-esquerda.visivel, .reveal-direita.visivel { transform: translateX(0); }
+
+  .reveal-escala { transform: scale(0.8); }
+  .reveal-escala.visivel { transform: scale(1); }
+
+  /* Delay escalonado para cards */
+  .card.reveal:nth-child(1) { transition-delay: 0s; }
+  .card.reveal:nth-child(2) { transition-delay: 0.1s; }
+  .card.reveal:nth-child(3) { transition-delay: 0.2s; }
+  .card.reveal:nth-child(4) { transition-delay: 0.3s; }
+
+  /* ========== HEADER ========== */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--header-bg);
+    color: var(--header-text);
+    box-shadow: var(--sombra);
+    transition: background var(--transicao);
+  }
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--amarelo-sol);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    animation: girar 12s linear infinite;
+  }
+
+  @keyframes girar {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  nav a {
+    color: var(--header-text);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0.7rem;
+    border-radius: 6px;
+    transition: background var(--transicao);
+    font-size: 0.95rem;
+  }
+
+  nav a:hover, nav a:focus { background: rgba(255, 255, 255, 0.2); }
+
+  .header-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .icon-btn {
+    background: transparent;
+    border: 2px solid var(--header-text);
+    color: var(--header-text);
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background var(--transicao), transform var(--transicao);
+  }
+
+  .icon-btn:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
+
+  .menu-toggle { display: none; }
+
+  /* ========== HERO ========== */
+  .hero {
+    background: linear-gradient(135deg, var(--azul-claro), var(--azul-medio));
+    color: var(--branco);
+    padding: 5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  body.modo-escuro .hero {
+    background: linear-gradient(135deg, #0a2540, #1a3a5c);
+    color: #e8e8f0;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,183,3,0.15) 0%, transparent 60%);
+    animation: pulsar 6s ease-in-out infinite;
+  }
+
+  @keyframes pulsar {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    animation: fadeDown 1s ease;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    margin-bottom: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeDown 1s ease 0.3s both;
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--amarelo-sol);
+    color: var(--azul-profundo);
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform var(--transicao), box-shadow var(--transicao);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    animation: fadeDown 1s ease 0.6s both;
+  }
+
+  .btn:hover, .btn:focus {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-forte);
+    background: var(--laranja);
+    color: var(--branco);
+  }
+
+  /* ========== SEÇÕES ========== */
+  section {
+    padding: 4rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  section h2 {
+    color: var(--azul-profundo);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 1rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
+  }
+
+  section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 80px; height: 4px;
+    background: linear-gradient(90deg, var(--amarelo-sol), var(--laranja));
+    border-radius: 2px;
+  }
+
+  .section-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    color: var(--cinza-texto);
+    opacity: 0.85;
+    font-size: 1.1rem;
+  }
+
+  /* ========== CARDS ========== */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .card {
+    background: var(--cinza-card);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--sombra);
+    transition: transform var(--transicao), box-shadow var(--transicao), background var(--transicao);
+    border-top: 5px solid var(--azul-claro);
+    color: var(--cinza-texto);
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--sombra-forte);
+  }
+
+  .card-icon {
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, var(--azul-claro), var(--azul-medio));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--branco);
+  }
+
+  body.modo-escuro .card-icon { color: #0f0f1e; }
+
+  .card h3 {
+    color: var(--azul-profundo);
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+  }
+
+  /* ========== ÓPTICA ========== */
+  .optica-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .newton-disc {
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    margin: 0 auto;
+    background: conic-gradient(
+      red 0deg 51deg, orange 51deg 102deg, yellow 102deg 153deg,
+      green 153deg 204deg, blue 204deg 255deg, indigo 255deg 306deg, violet 306deg 360deg
+    );
+    box-shadow: var(--sombra-forte);
+    cursor: pointer;
+    border: 4px solid var(--branco);
+  }
+
+  .newton-disc.girando { animation: girar 0.5s linear infinite; }
+  .newton-disc.parado-branco { background: var(--branco); }
+
+  .optica-texto p { margin-bottom: 1rem; }
+  .optica-texto strong { color: var(--azul-profundo); }
+
+  .demo-controls {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ========== SIMULADOR ========== */
+  .simulador {
+    background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    margin-top: 2rem;
+    box-shadow: var(--sombra);
+  }
+
+  body.modo-escuro .simulador {
+    background: linear-gradient(135deg, #0a2540, #1a3a5c);
+  }
+
+  .simulador-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .controles label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: var(--azul-profundo);
+  }
+
+  .controles input[type="range"] {
+    width: 100%;
+    margin-top: 0.5rem;
+    accent-color: var(--azul-medio);
+  }
+
+  .valor-range {
+    display: inline-block;
+    background: var(--azul-profundo);
+    color: var(--branco);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+  }
+
+  body.modo-escuro .valor-range { color: #0f0f1e; }
+
+  .piscina-visual {
+    position: relative;
+    height: 280px;
+    background: linear-gradient(to bottom, #87ceeb 0%, #87ceeb 30%, transparent 30%);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 4px solid var(--azul-profundo);
+  }
+
+  body.modo-escuro .piscina-visual {
+    background: linear-gradient(to bottom, #1a3a5c 0%, #1a3a5c 30%, transparent 30%);
+  }
+
+  .agua {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 70%;
+    transition: background 1s ease;
+  }
+
+  .sol-visual {
+    position: absolute;
+    top: 15px; right: 20px;
+    width: 60px; height: 60px;
+    background: radial-gradient(circle, var(--amarelo-sol), var(--laranja));
+    border-radius: 50%;
+    box-shadow: 0 0 30px var(--amarelo-sol);
+    animation: pulsar-sol 3s ease-in-out infinite;
+  }
+
+  @keyframes pulsar-sol {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .temperatura-display {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,0.95);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--sombra);
+    z-index: 2;
+    color: #212529;
+  }
+
+  body.modo-escuro .temperatura-display {
+    background: rgba(30,30,50,0.95);
+    color: #e8e8f0;
+  }
+
+  .temp-numero {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--azul-profundo);
+  }
+
+  .temp-label { font-size: 0.9rem; opacity: 0.8; }
+
+  /* ========== FLUXOGRAMA ========== */
+  .fluxograma {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .fluxo-item {
+    background: var(--cinza-card);
+    padding: 1.2rem 2rem;
+    border-radius: 12px;
+    box-shadow: var(--sombra);
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    border-left: 6px solid var(--azul-claro);
+    transition: transform var(--transicao);
+    cursor: pointer;
+    color: var(--cinza-texto);
+  }
+
+  .fluxo-item:hover { transform: scale(1.03); }
+
+  .fluxo-item.sensor { border-left-color: var(--verde); }
+  .fluxo-item.processador { border-left-color: var(--amarelo-sol); }
+  .fluxo-item.atuador { border-left-color: var(--laranja); }
+
+  .fluxo-item strong {
+    display: block;
+    color: var(--azul-profundo);
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .seta { font-size: 1.5rem; color: var(--azul-medio); }
+
+  /* ========== GRÁFICO ========== */
+  .grafico-container {
+    background: var(--cinza-card);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--sombra);
+    margin-top: 2rem;
+    color: var(--cinza-texto);
+  }
+
+  .grafico-canvas-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow-x: auto;
+  }
+
+  #graficoEconomia {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .grafico-legenda {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+  }
+
+  .legenda-cor {
+    width: 20px; height: 20px;
+    border-radius: 4px;
+  }
+
+  .grafico-info {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(255,183,3,0.1), rgba(251,133,0,0.1));
+    border-radius: 12px;
+    font-weight: 600;
+    color: var(--azul-profundo);
+  }
+
+  /* ========== QUIZ ========== */
+  .quiz-container {
+    background: var(--cinza-card);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: var(--sombra);
+    margin-top: 2rem;
+    color: var(--cinza-texto);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .quiz-progresso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    color: var(--azul-profundo);
+  }
+
+  .quiz-barra {
+    flex: 1;
+    height: 10px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 5px;
+    margin: 0 1rem;
+    overflow: hidden;
+  }
+
+  body.modo-escuro .quiz-barra { background: rgba(255,255,255,0.1); }
+
+  .quiz-barra-preenchimento {
+    height: 100%;
+    background: linear-gradient(90deg, var(--amarelo-sol), var(--laranja));
+    transition: width 0.4s ease;
+    border-radius: 5px;
+  }
+
+  .quiz-pergunta {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: var(--azul-profundo);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .quiz-opcoes {
+    display: grid;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .quiz-opcao {
+    background: var(--fundo-body);
+    border: 2px solid transparent;
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    transition: all var(--transicao);
+    color: var(--cinza-texto);
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .quiz-opcao:hover:not(:disabled) {
+    border-color: var(--azul-claro);
+    transform: translateX(5px);
+  }
+
+  .quiz-opcao:disabled { cursor: not-allowed; }
+
+  .quiz-opcao.correta {
+    background: var(--verde);
+    color: white;
+    border-color: var(--verde);
+    animation: pulse-verde 0.5s ease;
+  }
+
+  .quiz-opcao.errada {
+    background: var(--vermelho);
+    color: white;
+    border-color: var(--vermelho);
+    animation: shake 0.4s ease;
+  }
+
+  @keyframes pulse-verde {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+
+  .quiz-letra {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    background: var(--azul-profundo);
+    color: var(--branco);
+    border-radius: 50%;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .quiz-opcao.correta .quiz-letra,
+  .quiz-opcao.errada .quiz-letra {
+    background: rgba(255,255,255,0.3);
+    color: white;
+  }
+
+  .quiz-feedback {
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    display: none;
+    animation: fadeDown 0.4s ease;
+  }
+
+  .quiz-feedback.ativo { display: block; }
+
+  .quiz-feedback.sucesso {
+    background: rgba(42, 157, 143, 0.15);
+    border-left: 4px solid var(--verde);
+    color: var(--verde);
+  }
+
+  .quiz-feedback.erro {
+    background: rgba(230, 57, 70, 0.15);
+    border-left: 4px solid var(--vermelho);
+    color: var(--vermelho);
+  }
+
+  .quiz-botoes {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .quiz-btn {
+    background: var(--azul-medio);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all var(--transicao);
+    font-family: inherit;
+  }
+
+  .quiz-btn:hover:not(:disabled) {
+    background: var(--azul-profundo);
+    transform: translateY(-2px);
+  }
+
+  .quiz-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .quiz-resultado {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  .quiz-resultado h3 {
+    font-size: 1.8rem;
+    color: var(--azul-profundo);
+    margin-bottom: 1rem;
+  }
+
+  .quiz-placar {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--amarelo-sol);
+    margin: 1rem 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .quiz-msg {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: var(--cinza-texto);
+  }
+
+  /* ========== ACESSIBILIDADE ========== */
+  .acessibilidade-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .acess-item {
+    background: var(--cinza-card);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--sombra);
+    color: var(--cinza-texto);
+  }
+
+  .acess-item .icone { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .acess-item h4 { color: var(--azul-profundo); margin-bottom: 0.5rem; }
+
+  /* ========== LIBRAS ========== */
+  .libras-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .libras-card {
+    background: var(--cinza-card);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    transition: transform var(--transicao);
+    color: var(--cinza-texto);
+  }
+
+  .libras-card:hover { transform: translateY(-5px); }
+
+  .libras-video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, var(--azul-profundo), var(--azul-medio));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--branco);
+    cursor: pointer;
+  }
+
+  body.modo-escuro .libras-video {
+    background: linear-gradient(135deg, #0a2540, #1a3a5c);
+    color: #e8e8f0;
+  }
+
+  .libras-video .icone-play {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    background: rgba(255,255,255,0.2);
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transicao);
+  }
+
+  .libras-video:hover .icone-play { transform: scale(1.1); }
+
+  .libras-info { padding: 1.5rem; }
+  .libras-info h3 { color: var(--azul-profundo); margin-bottom: 0.5rem; }
+
+  .libras-badge {
+    display: inline-block;
+    background: var(--amarelo-sol);
+    color: var(--azul-profundo);
+    padding: 0.2rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+  }
+
+  body.modo-escuro .libras-badge { color: #0f0f1e; }
+
+  /* ========== IMPACTO ========== */
+  .impacto {
+    background: linear-gradient(135deg, var(--azul-profundo), var(--azul-medio));
+    color: var(--branco);
+    padding: 4rem 1.5rem;
+    text-align: center;
+    border-radius: 20px;
+    margin: 3rem auto;
+    max-width: 1200px;
+  }
+
+  body.modo-escuro .impacto {
+    background: linear-gradient(135deg, #0a2540, #1a3a5c);
+    color: #e8e8f0;
+  }
+
+  .impacto h2 { color: var(--amarelo-sol); }
+  .impacto h2::after { background: var(--branco); }
+
+  .impacto-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .stat {
+    background: rgba(255,255,255,0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+  }
+
+  .stat-numero {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--amarelo-sol);
+    display: block;
+  }
+
+  /* ========== BOTÃO FLUTUANTE PDF ========== */
+  .btn-pdf-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: linear-gradient(135deg, var(--laranja), var(--amarelo-sol));
+    color: var(--azul-profundo);
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    box-shadow: var(--sombra-forte);
+    z-index: 999;
+    transition: transform var(--transicao), box-shadow var(--transicao);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-pdf-float:hover {
+    transform: scale(1.1) rotate(-5deg);
+    box-shadow: 0 15px 40px rgba(251, 133, 0, 0.4);
+  }
+
+  .btn-pdf-float::after {
+    content: 'PDF';
+    position: absolute;
+    bottom: -22px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: var(--cinza-texto);
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--azul-profundo);
+    color: var(--branco);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  body.modo-escuro footer { background: #0a0a1a; }
+  footer p { margin: 0.3rem 0; }
+
+  /* ========== RESPONSIVIDADE ========== */
+  @media (max-width: 768px) {
+    .menu-toggle { display: block; }
+
+    nav ul {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    nav ul.ativo { display: flex; }
+
+    nav a {
+      display: block;
+      padding: 0.8rem;
+      text-align: center;
+    }
+
+    .optica-container,
+    .simulador-grid { grid-template-columns: 1fr; }
+
+    section { padding: 3rem 1rem; }
+
+    .logo span { font-size: 1.2rem; }
+
+    .quiz-container { padding: 1.5rem; }
+    .quiz-pergunta { font-size: 1.1rem; }
+    .quiz-placar { font-size: 2.5rem; }
+
+    .btn-pdf-float { width: 50px; height: 50px; font-size: 1.2rem; }
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -40px; left: 0;
+    background: var(--amarelo-sol);
+    color: var(--azul-profundo);
+    padding: 0.5rem 1rem;
+    z-index: 2000;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .skip-link:focus { top: 0; }
+
+  /* ========== IMPRESSÃO / PDF ========== */
+  @media print {
+    header, .btn-pdf-float, .demo-controls, .controles,
+    .quiz-botoes, .menu-toggle, .theme-toggle, .libras-video { display: none !important; }
+
+    body { background: white; color: black; font-size: 11pt; }
+
+    section { page-break-inside: avoid; padding: 1rem 0; }
+
+    .hero { background: white !important; color: black !important; padding: 2rem 0; }
+    .hero::before { display: none; }
+    .hero h1 { color: var(--azul-profundo) !important; text-shadow: none; }
+
+    .card, .quiz-container, .grafico-container, .libras-card,
+    .acess-item, .simulador, .impacto {
+      box-shadow: none !important;
+      border: 1px solid #ccc;
+      page-break-inside: avoid;
+    }
+
+    .impacto { background: #f0f0f0 !important; color: black !important; }
+    .stat-numero, .impacto h2 { color: #023e8a !important; }
+
+    a { color: black !important; text-decoration: none; }
+
+    .reveal { opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#conteudo" class="skip-link">Pular para o conteúdo principal</a>
+
+<!-- ========== HEADER ========== -->
+<header>
+  <div class="nav-container">
+    <div class="logo">
+      <div class="logo-icon" aria-hidden="true">☀️</div>
+      <span>AquaSolar CEP</span>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Ativar modo escuro" title="Alternar tema">🌙</button>
+      <button class="icon-btn" id="pdfBtn" aria-label="Baixar projeto em PDF" title="Baixar PDF">📄</button>
+      <button class="icon-btn menu-toggle" aria-label="Abrir menu" aria-expanded="false" id="menuBtn">☰</button>
+    </div>
+    <nav aria-label="Navegação principal">
+      <ul id="menuNav">
+        <li><a href="#projeto">Projeto</a></li>
+        <li><a href="#optica">Óptica</a></li>
+        <li><a href="#simulador">Simulador</a></li>
+        <li><a href="#robotica">Robótica</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+        <li><a href="#economia">Economia</a></li>
+        <li><a href="#acessibilidade">Acessibilidade</a></li>
+        <li><a href="#libras">Libras</a></li>
+        <li><a href="#impacto">Impacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<main id="conteudo">
+<section class="hero" aria-labelledby="titulo-hero">
+  <div class="hero-content">
+    <h1 id="titulo-hero">🌊 Aquecimento Sustentável da Piscina do CEP</h1>
+    <p>Um projeto integrador que une <strong>Óptica, Robótica e Acessibilidade Digital</strong> para criar um sistema eficiente, sustentável e inclusivo de aquecimento da piscina térmica da nossa escola.</p>
+    <a href="#projeto" class="btn">Conheça o Projeto</a>
+  </div>
+</section>
+
+<!-- ========== PROJETO ========== -->
+<section id="projeto" aria-labelledby="titulo-projeto">
+  <h2 id="titulo-projeto" class="reveal">💡 O Desafio</h2>
+  <p class="section-intro reveal">Aquecer uma piscina de forma eficiente e sustentável exige muito mais do que apenas energia: exige <strong>conhecimento científico</strong> e <strong>tecnologia inteligente</strong>.</p>
+
+  <div class="cards-grid">
+    <article class="card reveal">
+      <div class="card-icon" aria-hidden="true">🔬</div>
+      <h3>Física Aplicada</h3>
+      <p>Utilizamos conceitos de <strong>termodinâmica</strong> e <strong>óptica</strong> para maximizar a absorção de calor solar, reduzindo o consumo de energia elétrica em até 70%.</p>
+    </article>
+    <article class="card reveal">
+      <div class="card-icon" aria-hidden="true">🤖</div>
+      <h3>Automação Inteligente</h3>
+      <p>Sensores de temperatura, luminosidade e nível da água controlam atuadores (bombas e válvulas) para manter a piscina sempre na temperatura ideal.</p>
+    </article>
+    <article class="card reveal">
+      <div class="card-icon" aria-hidden="true">♻️</div>
+      <h3>Sustentabilidade</h3>
+      <p>Energia 100% solar, materiais recicláveis nos coletores e redução drástica da pegada de carbono da escola — um exemplo prático de educação ambiental.</p>
+    </article>
+    <article class="card reveal">
+      <div class="card-icon" aria-hidden="true">🌐</div>
+      <h3>Inclusão Digital</h3>
+      <p>Este site foi desenvolvido seguindo as diretrizes <strong>WCAG 2.1</strong> de acessibilidade, garantindo que todos possam conhecer o projeto.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ========== ÓPTICA ========== -->
+<section id="optica" aria-labelledby="titulo-optica">
+  <h2 id="titulo-optica" class="reveal">🔆 Óptica Aplicada ao Aquecimento</h2>
+  <p class="section-intro reveal">A luz solar é composta por todas as cores do espectro visível. Entender como a luz interage com os materiais é a chave para coletores solares eficientes.</p>
+
+  <div class="optica-container">
+    <div class="reveal reveal-esquerda">
+      <div class="newton-disc" id="discoNewton" role="img" aria-label="Disco de Newton colorido. Clique para ver o efeito da rotação."></div>
+      <div class="demo-controls">
+        <button class="btn" id="btnGirar" type="button">▶ Girar Disco</button>
+        <button class="btn" id="btnParar" type="button">⏸ Parar</button>
+      </div>
+      <p style="text-align: center; margin-top: 1rem; font-size: 0.95rem; opacity: 0.85;">
+        <em>Clique em "Girar" para ver como as cores se fundem em branco!</em>
+      </p>
+    </div>
+
+    <div class="optica-texto reveal reveal-direita">
+      <h3 style="color: var(--azul-profundo); margin-bottom: 1rem;">🎨 O Disco de Newton na Prática</h3>
+      <p>Quando o disco colorido gira rapidamente, nosso olho <strong>sintetiza as cores</strong> (vermelho, laranja, amarelo, verde, azul, anil e violeta) e as percebe como <strong>luz branca</strong> — exatamente como a luz do Sol!</p>
+      <p>📌 <strong>Aplicação no coletor:</strong> Os materiais escuros (como chapas de alumínio pintadas de <strong>preto fosco</strong>) <strong>absorvem quase toda a radiação</strong> visível e infravermelha, convertendo-a em calor. Materiais claros <strong>refletem</strong> a luz — por isso não são adequados para aquecimento.</p>
+      <p>📌 <strong>Câmara Escura:</strong> O princípio da câmara escura nos ajuda a entender como a luz se propaga em linha reta. Nos coletores, usamos <strong>tubos de vidro</strong> que funcionam como uma "câmara" que aprisiona o calor (efeito estufa interno).</p>
+      <p>📌 <strong>Refração:</strong> A tampa de vidro dos coletores permite a passagem da luz (refrata) mas dificulta a saída do calor infravermelho, aumentando a eficiência térmica.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SIMULADOR ========== -->
+<section id="simulador" aria-labelledby="titulo-simulador">
+  <h2 id="titulo-simulador" class="reveal">🎮 Simulador Interativo</h2>
+  <p class="section-intro reveal">Ajuste os parâmetros e veja como a temperatura da piscina se comporta em tempo real!</p>
+
+  <div class="simulador reveal reveal-escala">
+    <div class="simulador-grid">
+      <div class="controles">
+        <label for="radiacao">☀️ Radiação Solar (W/m²): <span class="valor-range" id="valRadiacao">800</span></label>
+        <input type="range" id="radiacao" min="0" max="1200" value="800">
+
+        <label for="corColetor">🎨 Cor do Coletor: <span class="valor-range" id="valCor">Preto</span></label>
+        <input type="range" id="corColetor" min="0" max="3" value="0">
+
+        <label for="tempAmbiente">🌡️ Temperatura Ambiente (°C): <span class="valor-range" id="valTempAmb">25</span></label>
+        <input type="range" id="tempAmbiente" min="5" max="40" value="25">
+
+        <label for="horasSol">⏰ Horas de Sol: <span class="valor-range" id="valHoras">6</span></label>
+        <input type="range" id="horasSol" min="1" max="12" value="6">
+      </div>
+
+      <div class="piscina-visual" role="img" aria-label="Visualização da piscina com temperatura dinâmica">
+        <div class="sol-visual" aria-hidden="true"></div>
+        <div class="agua" id="aguaVisual"></div>
+        <div class="temperatura-display">
+          <div class="temp-numero" id="tempFinal" aria-live="polite">28°C</div>
+          <div class="temp-label">Temperatura da Piscina</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ROBÓTICA ========== -->
+<section id="robotica" aria-labelledby="titulo-robotica">
+  <h2 id="titulo-robotica" class="reveal">🤖 Robótica e Programação</h2>
+  <p class="section-intro reveal">O sistema é controlado por um <strong>microcontrolador (Arduino/ESP32)</strong> que lê sensores e aciona atuadores automaticamente.</p>
+
+  <div class="fluxograma" role="list" aria-label="Fluxograma do sistema de automação">
+    <div class="fluxo-item sensor reveal" role="listitem" tabindex="0">
+      <strong>📡 Sensores (Entrada)</strong>
+      Sensor de temperatura da água (DS18B20) • Sensor de luminosidade (LDR) • Sensor de nível da água • Sensor de fluxo
+    </div>
+    <div class="seta reveal" aria-hidden="true">⬇️</div>
+    <div class="fluxo-item processador reveal" role="listitem" tabindex="0">
+      <strong>🧠 Processador (Lógica)</strong>
+      Microcontrolador ESP32 executa o programa: "SE temp &lt; 28°C E há sol ENTÃO ligue bomba". Monitoramento via Wi-Fi.
+    </div>
+    <div class="seta reveal" aria-hidden="true">⬇️</div>
+    <div class="fluxo-item atuador reveal" role="listitem" tabindex="0">
+      <strong>⚙️ Atuadores (Saída)</strong>
+      Bomba d'água • Válvula solenoide • Aquecedor elétrico auxiliar (backup) • Display LCD • Alarme sonoro
+    </div>
+    <div class="seta reveal" aria-hidden="true">⬇️</div>
+    <div class="fluxo-item sensor reveal" role="listitem" tabindex="0">
+      <strong>🔄 Realimentação (Feedback)</strong>
+      Sensores leem novamente a temperatura → loop contínuo até atingir a temperatura ideal (28-30°C).
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+    <h3 style="color: var(--azul-profundo); margin-bottom: 1rem;">💻 Exemplo de Lógica (Pseudocódigo)</h3>
+    <pre style="background: var(--code-bg); color: var(--code-text); padding: 1.2rem; border-radius: 8px; overflow-x: auto; font-size: 0.95rem; line-height: 1.5;"><code>SE (temp_agua &lt; 28) E (luminosidade &gt; 500) ENTÃO:
+    LIGAR bomba_circulacao
+    LIGAR valve_coletor
+    DESLIGAR aquecedor_eletrico
+SENÃO SE (temp_agua &lt; 26) E (noite):
+    LIGAR aquecedor_eletrico (modo econômico)
+SENÃO:
+    MANTER temperatura (standby)
+
+ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
+  </div>
+</section>
+
+<!-- ========== QUIZ ========== -->
+<section id="quiz" aria-labelledby="titulo-quiz">
+  <h2 id="titulo-quiz" class="reveal">🧠 Quiz: Teste seus Conhecimentos</h2>
+  <p class="section-intro reveal">Você prestou atenção nos conceitos de óptica? Responda às 5 perguntas e descubra!</p>
+
+  <div class="quiz-container reveal reveal-escala" id="quizContainer" aria-live="polite">
+    <div class="quiz-progresso">
+      <span id="quizContador">Pergunta 1 de 5</span>
+      <div class="quiz-barra" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="1">
+        <div class="quiz-barra-preenchimento" id="quizBarra" style="width: 20%"></div>
+      </div>
+      <span id="quizPontos">⭐ 0 pts</span>
+    </div>
+
+    <div id="quizConteudo">
+      <p class="quiz-pergunta" id="quizPergunta"></p>
+      <div class="quiz-opcoes" id="quizOpcoes" role="radiogroup"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-botoes">
+        <button class="quiz-btn" id="quizProxima" disabled>Próxima →</button>
+      </div>
+    </div>
+
+    <div id="quizResultado" class="quiz-resultado" style="display: none;">
+      <h3 id="quizTituloResultado">🎉 Quiz Finalizado!</h3>
+      <div class="quiz-placar" id="quizPlacarFinal">0/5</div>
+      <p class="quiz-msg" id="quizMsgFinal"></p>
+      <button class="quiz-btn" id="quizReiniciar">🔄 Jogar Novamente</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GRÁFICO ========== -->
+<section id="economia" aria-labelledby="titulo-economia">
+  <h2 id="titulo-economia" class="reveal">📊 Economia Mensal Projetada</h2>
+  <p class="section-intro reveal">Veja a projeção de economia de energia elétrica e redução de CO₂ ao longo de 12 meses com o sistema AquaSolar.</p>
+
+  <div class="grafico-container reveal">
+    <div class="grafico-canvas-wrapper">
+      <canvas id="graficoEconomia" width="900" height="400" role="img" aria-label="Gráfico de barras mostrando economia mensal de energia em kWh e redução de CO2 em kg ao longo de 12 meses"></canvas>
+    </div>
+    <div class="grafico-legenda">
+      <div class="legenda-item">
+        <span class="legenda-cor" style="background: #0077b6;"></span>
+        <span>Economia de Energia (kWh)</span>
+      </div>
+      <div class="legenda-item">
+        <span class="legenda-cor" style="background: #fb8500;"></span>
+        <span>Redução de CO₂ (kg)</span>
+      </div>
+    </div>
+    <div class="grafico-info">
+      💡 Economia total anual: <strong id="totalEconomia">0 kWh</strong> | CO₂ evitado: <strong id="totalCO2">0 kg</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ACESSIBILIDADE ========== -->
+<section id="acessibilidade" aria-labelledby="titulo-acess">
+  <h2 id="titulo-acess" class="reveal">♿ Acessibilidade Digital</h2>
+  <p class="section-intro reveal">Nosso site foi desenvolvido seguindo as boas práticas de <strong>acessibilidade web (WCAG 2.1)</strong> para que TODOS possam navegar.</p>
+
+  <div class="acessibilidade-grid">
+    <div class="acess-item reveal">
+      <div class="icone" aria-hidden="true">🎨</div>
+      <h4>Alto Contraste</h4>
+      <p>Cores com contraste mínimo de 4.5:1 entre texto e fundo.</p>
+    </div>
+    <div class="acess-item reveal">
+      <div class="icone" aria-hidden="true">🌙</div>
+      <h4>Modo Escuro</h4>
+      <p>Botão no topo permite alternar entre tema claro e escuro.</p>
+    </div>
+    <div class="acess-item reveal">
+      <div class="icone" aria-hidden="true">⌨️</div>
+      <h4>Navegação por Teclado</h4>
+      <p>Todos os elementos podem ser acessados com a tecla <strong>TAB</strong>.</p>
+    </div>
+    <div class="acess-item reveal">
+      <div class="icone" aria-hidden="true">📝</div>
+      <h4>Textos Alternativos</h4>
+      <p>Imagens e ícones possuem <code>alt</code> ou <code>aria-label</code>.</p>
+    </div>
+    <div class="acess-item reveal">
+      <div class="icone" aria-hidden="true">📱</div>
+      <h4>100% Responsivo</h4>
+      <p>Funciona em celulares, tablets e computadores.</p>
+    </div>
+    <div class="acess-item reveal">
+      <div class="icone" aria-hidden="true">📄</div>
+      <h4>Versão em PDF</h4>
+      <p>Botão flutuante permite baixar o projeto em PDF.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== LIBRAS ========== -->
+<section id="libras" aria-labelledby="titulo-libras">
+  <h2 id="titulo-libras" class="reveal">🤟 Conteúdo em Libras</h2>
+  <p class="section-intro reveal">Acreditamos que a informação deve ser <strong>acessível a todos</strong>, incluindo a comunidade surda.</p>
+
+  <div class="libras-grid">
+    <article class="libras-card reveal">
+      <div class="libras-video" role="button" tabindex="0" aria-label="Vídeo em Libras: Apresentação do projeto">
+        <div class="icone-play" aria-hidden="true">▶</div>
+        <span>Apresentação do Projeto</span>
+      </div>
+      <div class="libras-info">
+        <span class="libras-badge">🤟 LIBRAS</span>
+        <h3>Apresentação Geral</h3>
+        <p>Conheça os objetivos do AquaSolar CEP.</p>
+      </div>
+    </article>
+
+    <article class="libras-card reveal">
+      <div class="libras-video" role="button" tabindex="0" aria-label="Vídeo em Libras: Como funciona o coletor solar">
+        <div class="icone-play" aria-hidden="true">▶</div>
+        <span>Como Funciona o Coletor</span>
+      </div>
+      <div class="libras-info">
+        <span class="libras-badge">🤟 LIBRAS</span>
+        <h3>Óptica e Coletor Solar</h3>
+        <p>Explicação em Libras sobre absorção de luz.</p>
+      </div>
+    </article>
+
+    <article class="libras-card reveal">
+      <div class="libras-video" role="button" tabindex="0" aria-label="Vídeo em Libras: Sistema de automação">
+        <div class="icone-play" aria-hidden="true">▶</div>
+        <span>Automação e Robótica</span>
+      </div>
+      <div class="libras-info">
+        <span class="libras-badge">🤟 LIBRAS</span>
+        <h3>Sensores e Programação</h3>
+        <p>Como sensores e Arduino trabalham juntos.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ========== IMPACTO ========== -->
+<section id="impacto" class="impacto reveal" aria-labelledby="titulo-impacto">
+  <h2 id="titulo-impacto">🌍 Inovação e Impacto Social</h2>
+  <p style="max-width: 800px; margin: 1rem auto; font-size: 1.1rem;">
+    Este projeto vai além da tecnologia: é uma ferramenta de <strong>conscientização ambiental</strong> e <strong>inclusão social</strong>.
+  </p>
+
+  <div class="impacto-stats">
+    <div class="stat">
+      <span class="stat-numero" data-target="70">0</span>
+      <span>% de economia de energia</span>
+    </div>
+    <div class="stat">
+      <span class="stat-numero" data-target="500">0</span>
+      <span>kg de CO₂ evitados/ano</span>
+    </div>
+    <div class="stat">
+      <span class="stat-numero" data-target="1200">0</span>
+      <span>alunos beneficiados</span>
+    </div>
+    <div class="stat">
+      <span class="stat-numero" data-target="100">0</span>
+      <span>% de acessibilidade</span>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ========== BOTÃO PDF FLUTUANTE ========== -->
+<button class="btn-pdf-float" id="btnPdfFloat" aria-label="Baixar projeto em PDF" title="Baixar PDF">📄</button>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <p><strong>🌊 AquaSolar CEP</strong> — Projeto Integrador 2026</p>
+  <p>Desenvolvido com 💙 pela equipe de Tecnologia da Escola CEP</p>
+  <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+    © 2026 — Site acessível conforme WCAG 2.1
+  </p>
+</footer>
+
+<script>
+  // ========== MENU MOBILE ==========
+  const menuBtn = document.getElementById('menuBtn');
+  const menuNav = document.getElementById('menuNav');
+
+  menuBtn.addEventListener('click', () => {
+    const ativo = menuNav.classList.toggle('ativo');
+    menuBtn.setAttribute('aria-expanded', ativo);
+  });
+
+  document.querySelectorAll('#menuNav a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuNav.classList.remove('ativo');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ========== MODO ESCURO ==========
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+  const temaSalvo = localStorage.getItem('tema');
+  if (temaSalvo === 'escuro') {
+    body.classList.add('modo-escuro');
+    themeToggle.textContent = '☀️';
+    themeToggle.setAttribute('aria-label', 'Ativar modo claro');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('modo-escuro');
+    const escuro = body.classList.contains('modo-escuro');
+    themeToggle.textContent = escuro ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', escuro ? 'Ativar modo claro' : 'Ativar modo escuro');
+    localStorage.setItem('tema', escuro ? 'escuro' : 'claro');
+  });
+
+  // ========== ANIMAÇÕES DE SCROLL ==========
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visivel');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ========== DISCO DE NEWTON ==========
+  const disco = document.getElementById('discoNewton');
+  const btnGirar = document.getElementById('btnGirar');
+  const btnParar = document.getElementById('btnParar');
+
+  btnGirar.addEventListener('click', () => {
+    disco.classList.add('girando');
+    disco.classList.remove('parado-branco');
+  });
+
+  btnParar.addEventListener('click', () => {
+    disco.classList.remove('girando');
+    setTimeout(() => {
+      if (!disco.classList.contains('girando')) {
+        disco.classList.add('parado-branco');
+        setTimeout(() => disco.classList.remove('parado-branco'), 1500);
+      }
+    }, 500);
+  });
+
+  // ========== SIMULADOR ==========
+  const radiacao = document.getElementById('radiacao');
+  const corColetor = document.getElementById('corColetor');
+  const tempAmbiente = document.getElementById('tempAmbiente');
+  const horasSol = document.getElementById('horasSol');
+
+  const valRadiacao = document.getElementById('valRadiacao');
+  const valCor = document.getElementById('valCor');
+  const valTempAmb = document.getElementById('valTempAmb');
+  const valHoras = document.getElementById('valHoras');
+
+  const tempFinal = document.getElementById('tempFinal');
+  const aguaVisual = document.getElementById('aguaVisual');
+
+  const cores = ['Preto', 'Azul escuro', 'Vermelho', 'Branco'];
+  const eficiencia = [0.95, 0.80, 0.60, 0.20];
+
+  function calcularTemp() {
+    const R = parseFloat(radiacao.value);
+    const corIdx = parseInt(corColetor.value);
+    const Ta = parseFloat(tempAmbiente.value);
+    const H = parseFloat(horasSol.value);
+    const E = eficiencia[corIdx];
+
+    const deltaT = (R * E * H) / 2000;
+    const Tfinal = Math.min(Ta + deltaT, 45).toFixed(1);
+
+    valRadiacao.textContent = R;
+    valCor.textContent = cores[corIdx];
+    valTempAmb.textContent = Ta;
+    valHoras.textContent = H;
+    tempFinal.textContent = Tfinal + '°C';
+
+    let corAgua;
+    if (Tfinal < 20) corAgua = 'linear-gradient(to bottom, #4fc3f7, #0277bd)';
+    else if (Tfinal < 28) corAgua = 'linear-gradient(to bottom, #29b6f6, #0288d1)';
+    else if (Tfinal < 35) corAgua = 'linear-gradient(to bottom, #4dd0e1, #00838f)';
+    else corAgua = 'linear-gradient(to bottom, #ff8a65, #d84315)';
+
+    aguaVisual.style.background = corAgua;
+  }
+
+  [radiacao, corColetor, tempAmbiente, horasSol].forEach(input => {
+    input.addEventListener('input', calcularTemp);
+  });
+  calcularTemp();
+
+  // ========== QUIZ INTERATIVO ==========
+  const perguntas = [
+    {
+      pergunta: "Quando o Disco de Newton gira rapidamente, as 7 cores se fundem e nosso olho percebe qual cor?",
+      opcoes: ["Preto", "Branco", "Cinza", "Amarelo"],
+      correta: 1,
+      explicacao: "✅ Correto! A síntese aditiva das 7 cores do espectro resulta em luz branca, assim como a luz solar."
+    },
+    {
+      pergunta: "Por que os coletores solares são pintados de preto fosco?",
+      opcoes: ["Para refletir a luz", "Por estética", "Para absorver o máximo de radiação", "Para refratar a luz"],
+      correta: 2,
+      explicacao: "✅ Exato! O preto absorve quase todas as cores do espectro visível, convertendo-as em calor."
+    },
+    {
+      pergunta: "Qual fenômeno óptico explica a propagação da luz em linha reta, estudado na Câmara Escura?",
+      opcoes: ["Reflexão", "Refração", "Propagação retilínea", "Difração"],
+      correta: 2,
+      explicacao: "✅ Perfeito! A câmara escura demonstra que a luz se propaga em linha reta em um meio homogêneo."
+    },
+    {
+      pergunta: "No coletor solar, a tampa de vidro permite a entrada da luz visível mas dificulta a saída do calor infravermelho. Que fenômeno isso representa?",
+      opcoes: ["Efeito estufa interno", "Reflexão total", "Absorção total", "Dispersão"],
+      correta: 0,
+      explicacao: "✅ Isso mesmo! O vidro é transparente à luz visível mas opaco ao infravermelho, aprisionando o calor (efeito estufa)."
+    },
+    {
+      pergunta: "Qual material teria a MENOR eficiência como coletor solar?",
+      opcoes: ["Chapa de alumínio pintada de preto", "Tubo de cobre escuro", "Superfície branca polida", "Plástico preto fosco"],
+      correta: 2,
+      explicacao: "✅ Correto! Superfícies brancas e polidas REFLETEM a maior parte da luz, sendo péssimas para aquecimento."
+    }
+  ];
+
+  let perguntaAtual = 0;
+  let pontos = 0;
+  let respondida = false;
+
+  const quizPergunta = document.getElementById('quizPergunta');
+  const quizOpcoes = document.getElementById('quizOpcoes');
+  const quizFeedback = document.getElementById('quizFeedback');
+  const quizProxima = document.getElementById('quizProxima');
+  const quizContador = document.getElementById('quizContador');
+  const quizPontos = document.getElementById('quizPontos');
+  const quizBarra = document.getElementById('quizBarra');
+  const quizConteudo = document.getElementById('quizConteudo');
+  const quizResultado = document.getElementById('quizResultado');
+  const quizPlacarFinal = document.getElementById('quizPlacarFinal');
+  const quizMsgFinal = document.getElementById('quizMsgFinal');
+  const quizReiniciar = document.getElementById('quizReiniciar');
+
+  function carregarPergunta() {
+    respondida = false;
+    quizProxima.disabled = true;
+    const p = perguntas[perguntaAtual];
+    quizPergunta.textContent = p.pergunta;
+    quizOpcoes.innerHTML = '';
+    quizFeedback.classList.remove('ativo', 'sucesso', 'erro');
+
+    const letras = ['A', 'B', 'C', 'D'];
+    p.opcoes.forEach((opcao, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-opcao';
+      btn.innerHTML = `<span class="quiz-letra">${letras[i]}</span><span>${opcao}</span>`;
+      btn.addEventListener('click', () => responder(i, btn));
+      quizOpcoes.appendChild(btn);
+    });
+
+    quizContador.textContent = `Pergunta ${perguntaAtual + 1} de ${perguntas.length}`;
+    quizPontos.textContent = `⭐ ${pontos} pts`;
+    quizBarra.style.width = `${((perguntaAtual + 1) / perguntas.length) * 100}%`;
+  }
+
+  function responder(indice, btn) {
+    if (respondida) return;
+    respondida = true;
+    const p = perguntas[perguntaAtual];
+    const botoes = quizOpcoes.querySelectorAll('.quiz-opcao');
+
+    botoes.forEach(b => b.disabled = true);
+
+    if (indice === p.correta) {
+      btn.classList.add('correta');
+      pontos++;
+      quizFeedback.textContent = p.explicacao;
+      quizFeedback.className = 'quiz-feedback ativo sucesso';
+    } else {
+      btn.classList.add('errada');
+      botoes[p.correta].classList.add('correta');
+      quizFeedback.textContent = `❌ Resposta correta: ${p.opcoes[p.correta]}. ${p.explicacao.replace('✅ ', '')}`;
+      quizFeedback.className = 'quiz-feedback ativo erro';
+    }
+
+    quizPontos.textContent = `⭐ ${pontos} pts`;
+    quizProxima.disabled = false;
+    quizProxima.textContent = perguntaAtual === perguntas.length - 1 ? 'Ver Resultado 🏆' : 'Próxima →';
+  }
+
+  quizProxima.addEventListener('click', () => {
+    perguntaAtual++;
+    if (perguntaAtual < perguntas.length) {
+      carregarPergunta();
+    } else {
+      mostrarResultado();
+    }
+  });
+
+  function mostrarResultado() {
+    quizConteudo.style.display = 'none';
+    quizResultado.style.display = 'block';
+    quizPlacarFinal.textContent = `${pontos}/${perguntas.length}`;
+
+    let msg = '';
+    if (pontos === perguntas.length) msg = '🏆 Perfeito! Você é um mestre da óptica!';
+    else if (pontos >= 4) msg = '🌟 Excelente! Você domina os conceitos!';
+    else if (pontos >= 3) msg = '👍 Bom trabalho! Revise alguns conceitos para melhorar.';
+    else if (pontos >= 2) msg = '📚 Razoável. Que tal reler a seção de Óptica?';
+    else msg = '💪 Não desista! Releia o conteúdo e tente novamente.';
+
+    quizMsgFinal.textContent = msg;
+  }
+
+  quizReiniciar.addEventListener('click', () => {
+    perguntaAtual = 0;
+    pontos = 0;
+    quizConteudo.style.display = 'block';
+    quizResultado.style.display = 'none';
+    carregarPergunta();
+  });
+
+  carregarPergunta();
+
+  // ========== GRÁFICO ==========
+  const canvas = document.getElementById('graficoEconomia');
+  const ctx = canvas.getContext('2d');
+
+  const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+  const economiaKWh = [420, 450, 380, 320, 280, 240, 230, 260, 310, 370, 410, 440];
+  const co2Kg = economiaKWh.map(kwh => Math.round(kwh * 0.12));
+
+  function desenharGrafico() {
+    const isDark = body.classList.contains('modo-escuro');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const corTexto = isDark ? '#e8e8f0' : '#212529';
+    const corGrid = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+    const corBarra1 = '#0077b6';
+    const corBarra2 = '#fb8500';
+
+    const largura = canvas.width;
+    const altura = canvas.height;
+    const margemEsq = 60, margemDir = 30, margemTop = 30, margemBot = 50;
+
+    const areaLargura = largura - margemEsq - margemDir;
+    const areaAltura = altura - margemTop - margemBot;
+
+    const maxValor = Math.max(...economiaKWh, ...co2Kg) * 1.15;
+
+    ctx.strokeStyle = corGrid;
+    ctx.lineWidth = 1;
+    ctx.font = '12px Segoe UI';
+    ctx.fillStyle = corTexto;
+    ctx.textAlign = 'right';
+
+    for (let i = 0; i <= 5; i++) {
+      const y = margemTop + (areaAltura / 5) * i;
+      const valor = Math.round(maxValor - (maxValor / 5) * i);
+      ctx.beginPath();
+      ctx.moveTo(margemEsq, y);
+      ctx.lineTo(largura - margemDir, y);
+      ctx.stroke();
+      ctx.fillText(valor, margemEsq - 8, y + 4);
+    }
+
+    const larguraGrupo = areaLargura / meses.length;
+    const larguraBarra = larguraGrupo * 0.35;
+    const espaco = larguraGrupo * 0.05;
+
+    meses.forEach((mes, i) => {
+      const xGrupo = margemEsq + larguraGrupo * i;
+
+      const h1 = (economiaKWh[i] / maxValor) * areaAltura;
+      const x1 = xGrupo + espaco;
+      const y1 = margemTop + areaAltura - h1;
+
+      const grad1 = ctx.createLinearGradient(0, y1, 0, y1 + h1);
+      grad1.addColorStop(0, '#00b4d8');
+      grad1.addColorStop(1, corBarra1);
+      ctx.fillStyle = grad1;
+      ctx.fillRect(x1, y1, larguraBarra, h1);
+
+      const h2 = (co2Kg[i] / maxValor) * areaAltura;
+      const x2 = x1 + larguraBarra + espaco;
+      const y2 = margemTop + areaAltura - h2;
+
+      const grad2 = ctx.createLinearGradient(0, y2, 0, y2 + h2);
+      grad2.addColorStop(0, '#ffb703');
+      grad2.addColorStop(1, corBarra2);
+      ctx.fillStyle = grad2;
+      ctx.fillRect(x2, y2, larguraBarra, h2);
+
+      ctx.fillStyle = corTexto;
+      ctx.textAlign = 'center';
+      ctx.font = '13px Segoe UI';
+      ctx.fillText(mes, xGrupo + larguraGrupo / 2, altura - margemBot + 20);
+    });
+
+    ctx.save();
+    ctx.translate(18, altura / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 13px Segoe UI';
+    ctx.fillText('kWh / kg CO₂', 0, 0);
+    ctx.restore();
+
+    const totalKWh = economiaKWh.reduce((a, b) => a + b, 0);
+    const totalCO2 = co2Kg.reduce((a, b) => a + b, 0);
+    document.getElementById('totalEconomia').textContent = totalKWh.toLocaleString('pt-BR') + ' kWh';
+    document.getElementById('totalCO2').textContent = totalCO2.toLocaleString('pt-BR') + ' kg';
+  }
+
+  desenharGrafico();
+
+  const observerTema = new MutationObserver(() => desenharGrafico());
+  observerTema.observe(body, { attributes: true, attributeFilter: ['class'] });
+
+  // ========== CONTADOR ANIMADO ==========
+  const stats = document.querySelectorAll('.stat-numero');
+
+  const observerStats = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        let atual = 0;
+        const incremento = target / 60;
+        const timer = setInterval(() => {
+          atual += incremento;
+          if (atual >= target) {
+            el.textContent = target;
+            clearInterval(timer);
+          } else {
+            el.textContent = Math.floor(atual);
+          }
+        }, 25);
+        observerStats.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  stats.forEach(stat => observerStats.observe(stat));
+
+  // ========== LIBRAS PLACEHOLDER ==========
+  document.querySelectorAll('.libras-video').forEach(video => {
+    const handleClick = () => {
+      alert('🤟 Este é um espaço reservado para o vídeo em Libras.\n\nPeça à equipe para gravar os vídeos e substituir pelo elemento <video>.');
+    };
+    video.addEventListener('click', handleClick);
+    video.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleClick();
+      }
+    });
+  });
+
+  // ========== BOTÃO PDF ==========
+  function baixarPDF() {
+    // Força todas as animações a aparecerem antes da impressão
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visivel'));
+    // Pequeno delay para as animações terminarem
+    setTimeout(() => {
+      window.print();
+    }, 300);
+  }
+
+  document.getElementById('pdfBtn').addEventListener('click', baixarPDF);
+  document.getElementById('btnPdfFloat').addEventListener('click', baixarPDF);
+</script>
+
+</body>
+</html>
