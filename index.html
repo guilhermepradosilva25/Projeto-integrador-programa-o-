@@ -75,15 +75,10 @@
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
 
-  .reveal.visivel {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
+  .reveal.visivel { opacity: 1; transform: translateY(0); }
   .reveal-esquerda { transform: translateX(-50px); }
   .reveal-direita { transform: translateX(50px); }
   .reveal-esquerda.visivel, .reveal-direita.visivel { transform: translateX(0); }
-
   .reveal-escala { transform: scale(0.8); }
   .reveal-escala.visivel { transform: scale(1); }
 
@@ -122,8 +117,7 @@
   }
 
   .logo-icon {
-    width: 40px;
-    height: 40px;
+    width: 40px; height: 40px;
     background: var(--amarelo-sol);
     border-radius: 50%;
     display: flex;
@@ -133,10 +127,7 @@
     animation: girar 12s linear infinite;
   }
 
-  @keyframes girar {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
+  @keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
   nav ul {
     list-style: none;
@@ -158,11 +149,7 @@
 
   nav a:hover, nav a:focus { background: rgba(255, 255, 255, 0.2); }
 
-  .header-actions {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
+  .header-actions { display: flex; gap: 0.5rem; align-items: center; }
 
   .icon-btn {
     background: transparent;
@@ -176,7 +163,6 @@
   }
 
   .icon-btn:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
-
   .menu-toggle { display: none; }
 
   .hero {
@@ -303,10 +289,7 @@
     color: var(--cinza-texto);
   }
 
-  .card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--sombra-forte);
-  }
+  .card:hover { transform: translateY(-8px); box-shadow: var(--sombra-forte); }
 
   .card-icon {
     width: 60px; height: 60px;
@@ -321,12 +304,7 @@
   }
 
   body.modo-escuro .card-icon { color: #0f0f1e; }
-
-  .card h3 {
-    color: var(--azul-profundo);
-    margin-bottom: 0.8rem;
-    font-size: 1.3rem;
-  }
+  .card h3 { color: var(--azul-profundo); margin-bottom: 0.8rem; font-size: 1.3rem; }
 
   .optica-container {
     display: grid;
@@ -460,12 +438,7 @@
     color: #e8e8f0;
   }
 
-  .temp-numero {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--azul-profundo);
-  }
-
+  .temp-numero { font-size: 2.5rem; font-weight: bold; color: var(--azul-profundo); }
   .temp-label { font-size: 0.9rem; opacity: 0.8; }
 
   .fluxograma {
@@ -491,7 +464,6 @@
   }
 
   .fluxo-item:hover { transform: scale(1.03); }
-
   .fluxo-item.sensor { border-left-color: var(--verde); }
   .fluxo-item.processador { border-left-color: var(--amarelo-sol); }
   .fluxo-item.atuador { border-left-color: var(--laranja); }
@@ -522,12 +494,7 @@
     overflow-x: auto;
   }
 
-  #graficoEconomia {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
-    height: auto;
-  }
+  #graficoEconomia { display: block; margin: 0 auto; max-width: 100%; height: auto; }
 
   .grafico-legenda {
     display: flex;
@@ -537,17 +504,8 @@
     flex-wrap: wrap;
   }
 
-  .legenda-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 500;
-  }
-
-  .legenda-cor {
-    width: 20px; height: 20px;
-    border-radius: 4px;
-  }
+  .legenda-item { display: flex; align-items: center; gap: 0.5rem; font-weight: 500; }
+  .legenda-cor { width: 20px; height: 20px; border-radius: 4px; }
 
   .grafico-info {
     text-align: center;
@@ -606,11 +564,7 @@
     line-height: 1.5;
   }
 
-  .quiz-opcoes {
-    display: grid;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
-  }
+  .quiz-opcoes { display: grid; gap: 0.8rem; margin-bottom: 1.5rem; }
 
   .quiz-opcao {
     background: var(--fundo-body);
@@ -628,11 +582,7 @@
     gap: 0.8rem;
   }
 
-  .quiz-opcao:hover:not(:disabled) {
-    border-color: var(--azul-claro);
-    transform: translateX(5px);
-  }
-
+  .quiz-opcao:hover:not(:disabled) { border-color: var(--azul-claro); transform: translateX(5px); }
   .quiz-opcao:disabled { cursor: not-allowed; }
 
   .quiz-opcao.correta {
@@ -673,10 +623,7 @@
   }
 
   .quiz-opcao.correta .quiz-letra,
-  .quiz-opcao.errada .quiz-letra {
-    background: rgba(255,255,255,0.3);
-    color: white;
-  }
+  .quiz-opcao.errada .quiz-letra { background: rgba(255,255,255,0.3); color: white; }
 
   .quiz-feedback {
     padding: 1rem 1.2rem;
@@ -688,25 +635,10 @@
   }
 
   .quiz-feedback.ativo { display: block; }
+  .quiz-feedback.sucesso { background: rgba(42, 157, 143, 0.15); border-left: 4px solid var(--verde); color: var(--verde); }
+  .quiz-feedback.erro { background: rgba(230, 57, 70, 0.15); border-left: 4px solid var(--vermelho); color: var(--vermelho); }
 
-  .quiz-feedback.sucesso {
-    background: rgba(42, 157, 143, 0.15);
-    border-left: 4px solid var(--verde);
-    color: var(--verde);
-  }
-
-  .quiz-feedback.erro {
-    background: rgba(230, 57, 70, 0.15);
-    border-left: 4px solid var(--vermelho);
-    color: var(--vermelho);
-  }
-
-  .quiz-botoes {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-  }
+  .quiz-botoes { display: flex; gap: 1rem; justify-content: flex-end; flex-wrap: wrap; }
 
   .quiz-btn {
     background: var(--azul-medio);
@@ -721,40 +653,13 @@
     font-family: inherit;
   }
 
-  .quiz-btn:hover:not(:disabled) {
-    background: var(--azul-profundo);
-    transform: translateY(-2px);
-  }
+  .quiz-btn:hover:not(:disabled) { background: var(--azul-profundo); transform: translateY(-2px); }
+  .quiz-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  .quiz-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .quiz-resultado {
-    text-align: center;
-    padding: 2rem 1rem;
-  }
-
-  .quiz-resultado h3 {
-    font-size: 1.8rem;
-    color: var(--azul-profundo);
-    margin-bottom: 1rem;
-  }
-
-  .quiz-placar {
-    font-size: 3rem;
-    font-weight: bold;
-    color: var(--amarelo-sol);
-    margin: 1rem 0;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-  }
-
-  .quiz-msg {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    color: var(--cinza-texto);
-  }
+  .quiz-resultado { text-align: center; padding: 2rem 1rem; }
+  .quiz-resultado h3 { font-size: 1.8rem; color: var(--azul-profundo); margin-bottom: 1rem; }
+  .quiz-placar { font-size: 3rem; font-weight: bold; color: var(--amarelo-sol); margin: 1rem 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+  .quiz-msg { font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--cinza-texto); }
 
   .acessibilidade-grid {
     display: grid;
@@ -774,71 +679,6 @@
 
   .acess-item .icone { font-size: 2.5rem; margin-bottom: 0.5rem; }
   .acess-item h4 { color: var(--azul-profundo); margin-bottom: 0.5rem; }
-
-  .libras-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-
-  .libras-card {
-    background: var(--cinza-card);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--sombra);
-    transition: transform var(--transicao);
-    color: var(--cinza-texto);
-  }
-
-  .libras-card:hover { transform: translateY(-5px); }
-
-  .libras-video {
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: linear-gradient(135deg, var(--azul-profundo), var(--azul-medio));
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--branco);
-    cursor: pointer;
-  }
-
-  body.modo-escuro .libras-video {
-    background: linear-gradient(135deg, #0a2540, #1a3a5c);
-    color: #e8e8f0;
-  }
-
-  .libras-video .icone-play {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-    background: rgba(255,255,255,0.2);
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform var(--transicao);
-  }
-
-  .libras-video:hover .icone-play { transform: scale(1.1); }
-
-  .libras-info { padding: 1.5rem; }
-  .libras-info h3 { color: var(--azul-profundo); margin-bottom: 0.5rem; }
-
-  .libras-badge {
-    display: inline-block;
-    background: var(--amarelo-sol);
-    color: var(--azul-profundo);
-    padding: 0.2rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    margin-bottom: 0.8rem;
-  }
-
-  body.modo-escuro .libras-badge { color: #0f0f1e; }
 
   .impacto {
     background: linear-gradient(135deg, var(--azul-profundo), var(--azul-medio));
@@ -872,17 +712,11 @@
     backdrop-filter: blur(10px);
   }
 
-  .stat-numero {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--amarelo-sol);
-    display: block;
-  }
+  .stat-numero { font-size: 2.5rem; font-weight: bold; color: var(--amarelo-sol); display: block; }
 
   .btn-pdf-float {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
+    bottom: 25px; right: 25px;
     background: linear-gradient(135deg, var(--laranja), var(--amarelo-sol));
     color: var(--azul-profundo);
     width: 60px; height: 60px;
@@ -898,19 +732,8 @@
     justify-content: center;
   }
 
-  .btn-pdf-float:hover {
-    transform: scale(1.1) rotate(-5deg);
-    box-shadow: 0 15px 40px rgba(251, 133, 0, 0.4);
-  }
-
-  .btn-pdf-float::after {
-    content: 'PDF';
-    position: absolute;
-    bottom: -22px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    color: var(--cinza-texto);
-  }
+  .btn-pdf-float:hover { transform: scale(1.1) rotate(-5deg); box-shadow: 0 15px 40px rgba(251, 133, 0, 0.4); }
+  .btn-pdf-float::after { content: 'PDF'; position: absolute; bottom: -22px; font-size: 0.7rem; font-weight: bold; color: var(--cinza-texto); }
 
   footer {
     background: var(--azul-profundo);
@@ -922,35 +745,30 @@
   body.modo-escuro footer { background: #0a0a1a; }
   footer p { margin: 0.3rem 0; }
 
+  .grupo-info {
+    background: rgba(255,255,255,0.1);
+    padding: 1rem;
+    border-radius: 12px;
+    margin: 1rem auto;
+    max-width: 700px;
+    backdrop-filter: blur(10px);
+  }
+
+  .grupo-info h4 { color: var(--amarelo-sol); margin-bottom: 0.5rem; }
+  .grupo-info ul { list-style: none; padding: 0; }
+  .grupo-info li { padding: 0.2rem 0; font-size: 0.95rem; }
+
   @media (max-width: 768px) {
     .menu-toggle { display: block; }
-
-    nav ul {
-      display: none;
-      width: 100%;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
+    nav ul { display: none; width: 100%; flex-direction: column; gap: 0.5rem; }
     nav ul.ativo { display: flex; }
-
-    nav a {
-      display: block;
-      padding: 0.8rem;
-      text-align: center;
-    }
-
-    .optica-container,
-    .simulador-grid { grid-template-columns: 1fr; }
-
+    nav a { display: block; padding: 0.8rem; text-align: center; }
+    .optica-container, .simulador-grid { grid-template-columns: 1fr; }
     section { padding: 3rem 1rem; }
-
     .logo span { font-size: 1.2rem; }
-
     .quiz-container { padding: 1.5rem; }
     .quiz-pergunta { font-size: 1.1rem; }
     .quiz-placar { font-size: 2.5rem; }
-
     .btn-pdf-float { width: 50px; height: 50px; font-size: 1.2rem; }
   }
 
@@ -969,28 +787,20 @@
 
   @media print {
     header, .btn-pdf-float, .demo-controls, .controles,
-    .quiz-botoes, .menu-toggle, .theme-toggle, .libras-video { display: none !important; }
-
+    .quiz-botoes, .menu-toggle, .theme-toggle { display: none !important; }
     body { background: white; color: black; font-size: 11pt; }
-
     section { page-break-inside: avoid; padding: 1rem 0; }
-
     .hero { background: white !important; color: black !important; padding: 2rem 0; }
     .hero::before { display: none; }
     .hero h1 { color: var(--azul-profundo) !important; text-shadow: none; }
-
-    .card, .quiz-container, .grafico-container, .libras-card,
-    .acess-item, .simulador, .impacto {
+    .card, .quiz-container, .grafico-container, .acess-item, .simulador, .impacto {
       box-shadow: none !important;
       border: 1px solid #ccc;
       page-break-inside: avoid;
     }
-
     .impacto { background: #f0f0f0 !important; color: black !important; }
     .stat-numero, .impacto h2 { color: #023e8a !important; }
-
     a { color: black !important; text-decoration: none; }
-
     .reveal { opacity: 1 !important; transform: none !important; }
   }
 </style>
@@ -1019,7 +829,6 @@
         <li><a href="#quiz">Quiz</a></li>
         <li><a href="#economia">Economia</a></li>
         <li><a href="#acessibilidade">Acessibilidade</a></li>
-        <li><a href="#libras">Libras</a></li>
         <li><a href="#impacto">Impacto</a></li>
       </ul>
     </nav>
@@ -1041,7 +850,7 @@
 
   <div class="cards-grid">
     <article class="card reveal">
-      <div class="card-icon" aria-hidden="true">🔬</div>
+      <div class="card-icon" aria-hidden="true"></div>
       <h3>Física Aplicada</h3>
       <p>Utilizamos conceitos de <strong>termodinâmica</strong> e <strong>óptica</strong> para maximizar a absorção de calor solar, reduzindo o consumo de energia elétrica em até 70%.</p>
     </article>
@@ -1083,7 +892,7 @@
       <h3 style="color: var(--azul-profundo); margin-bottom: 1rem;">🎨 O Disco de Newton na Prática</h3>
       <p>Quando o disco colorido gira rapidamente, nosso olho <strong>sintetiza as cores</strong> (vermelho, laranja, amarelo, verde, azul, anil e violeta) e as percebe como <strong>luz branca</strong> — exatamente como a luz do Sol!</p>
       <p>📌 <strong>Aplicação no coletor:</strong> Os materiais escuros (como chapas de alumínio pintadas de <strong>preto fosco</strong>) <strong>absorvem quase toda a radiação</strong> visível e infravermelha, convertendo-a em calor. Materiais claros <strong>refletem</strong> a luz — por isso não são adequados para aquecimento.</p>
-      <p>📌 <strong>Câmara Escura:</strong> O princípio da câmara escura nos ajuda a entender como a luz se propaga em linha reta. Nos coletores, usamos <strong>tubos de vidro</strong> que funcionam como uma "câmara" que aprisiona o calor (efeito estufa interno).</p>
+      <p> <strong>Câmara Escura:</strong> O princípio da câmara escura nos ajuda a entender como a luz se propaga em linha reta. Nos coletores, usamos <strong>tubos de vidro</strong> que funcionam como uma "câmara" que aprisiona o calor (efeito estufa interno).</p>
       <p>📌 <strong>Refração:</strong> A tampa de vidro dos coletores permite a passagem da luz (refrata) mas dificulta a saída do calor infravermelho, aumentando a eficiência térmica.</p>
     </div>
   </div>
@@ -1099,7 +908,7 @@
         <label for="radiacao">☀️ Radiação Solar (W/m²): <span class="valor-range" id="valRadiacao">800</span></label>
         <input type="range" id="radiacao" min="0" max="1200" value="800">
 
-        <label for="corColetor">🎨 Cor do Coletor: <span class="valor-range" id="valCor">Preto</span></label>
+        <label for="corColetor"> Cor do Coletor: <span class="valor-range" id="valCor">Preto</span></label>
         <input type="range" id="corColetor" min="0" max="3" value="0">
 
         <label for="tempAmbiente">🌡️ Temperatura Ambiente (°C): <span class="valor-range" id="valTempAmb">25</span></label>
@@ -1140,7 +949,7 @@
       <strong>⚙️ Atuadores (Saída)</strong>
       Bomba d'água • Válvula solenoide • Aquecedor elétrico auxiliar (backup) • Display LCD • Alarme sonoro
     </div>
-    <div class="seta reveal" aria-hidden="true">⬇️</div>
+    <div class="seta reveal" aria-hidden="true">️</div>
     <div class="fluxo-item sensor reveal" role="listitem" tabindex="0">
       <strong>🔄 Realimentação (Feedback)</strong>
       Sensores leem novamente a temperatura → loop contínuo até atingir a temperatura ideal (28-30°C).
@@ -1248,53 +1057,10 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
       <p>Funciona em celulares, tablets e computadores.</p>
     </div>
     <div class="acess-item reveal">
-      <div class="icone" aria-hidden="true">📄</div>
+      <div class="icone" aria-hidden="true"></div>
       <h4>Versão em PDF</h4>
       <p>Botão flutuante permite baixar o projeto em PDF.</p>
     </div>
-  </div>
-</section>
-
-<section id="libras" aria-labelledby="titulo-libras">
-  <h2 id="titulo-libras" class="reveal">🤟 Conteúdo em Libras</h2>
-  <p class="section-intro reveal">Acreditamos que a informação deve ser <strong>acessível a todos</strong>, incluindo a comunidade surda.</p>
-
-  <div class="libras-grid">
-    <article class="libras-card reveal">
-      <div class="libras-video" role="button" tabindex="0" aria-label="Vídeo em Libras: Apresentação do projeto">
-        <div class="icone-play" aria-hidden="true">▶</div>
-        <span>Apresentação do Projeto</span>
-      </div>
-      <div class="libras-info">
-        <span class="libras-badge">🤟 LIBRAS</span>
-        <h3>Apresentação Geral</h3>
-        <p>Conheça os objetivos do AquaSolar CEP.</p>
-      </div>
-    </article>
-
-    <article class="libras-card reveal">
-      <div class="libras-video" role="button" tabindex="0" aria-label="Vídeo em Libras: Como funciona o coletor solar">
-        <div class="icone-play" aria-hidden="true">▶</div>
-        <span>Como Funciona o Coletor</span>
-      </div>
-      <div class="libras-info">
-        <span class="libras-badge">🤟 LIBRAS</span>
-        <h3>Óptica e Coletor Solar</h3>
-        <p>Explicação em Libras sobre absorção de luz.</p>
-      </div>
-    </article>
-
-    <article class="libras-card reveal">
-      <div class="libras-video" role="button" tabindex="0" aria-label="Vídeo em Libras: Sistema de automação">
-        <div class="icone-play" aria-hidden="true">▶</div>
-        <span>Automação e Robótica</span>
-      </div>
-      <div class="libras-info">
-        <span class="libras-badge">🤟 LIBRAS</span>
-        <h3>Sensores e Programação</h3>
-        <p>Como sensores e Arduino trabalham juntos.</p>
-      </div>
-    </article>
   </div>
 </section>
 
@@ -1329,6 +1095,15 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
 
 <footer>
   <p><strong>🌊 AquaSolar CEP</strong> — Projeto Integrador 2026</p>
+  <div class="grupo-info">
+    <h4>👥 Grupo 3</h4>
+    <ul>
+      <li>👤 Guilherme Pietro Prado da Silva</li>
+      <li>👤 Valentina Rodrigues Perottoni</li>
+      <li> Mateus Palmeiro Fedalto</li>
+      <li>👤 Constanza Miessa Haygert</li>
+    </ul>
+  </div>
   <p>Desenvolvido com 💙 pela equipe de Tecnologia da Escola CEP</p>
   <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
     © 2026 — Site acessível conforme WCAG 2.1
@@ -1364,7 +1139,7 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
   themeToggle.addEventListener('click', () => {
     body.classList.toggle('modo-escuro');
     const escuro = body.classList.contains('modo-escuro');
-    themeToggle.textContent = escuro ? '☀️' : '🌙';
+    themeToggle.textContent = escuro ? '️' : '🌙';
     themeToggle.setAttribute('aria-label', escuro ? 'Ativar modo claro' : 'Ativar modo escuro');
     localStorage.setItem('tema', escuro ? 'escuro' : 'claro');
   });
@@ -1539,7 +1314,7 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
 
     quizPontos.textContent = `⭐ ${pontos} pts`;
     quizProxima.disabled = false;
-    quizProxima.textContent = perguntaAtual === perguntas.length - 1 ? 'Ver Resultado 🏆' : 'Próxima →';
+    quizProxima.textContent = perguntaAtual === perguntas.length - 1 ? 'Ver Resultado ' : 'Próxima →';
   }
 
   quizProxima.addEventListener('click', () => {
@@ -1694,24 +1469,9 @@ ENVIAR dados para dashboard_web via Wi-Fi</code></pre>
 
   stats.forEach(stat => observerStats.observe(stat));
 
-  document.querySelectorAll('.libras-video').forEach(video => {
-    const handleClick = () => {
-      alert('🤟 Este é um espaço reservado para o vídeo em Libras.\n\nPeça à equipe para gravar os vídeos e substituir pelo elemento <video>.');
-    };
-    video.addEventListener('click', handleClick);
-    video.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handleClick();
-      }
-    });
-  });
-
   function baixarPDF() {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('visivel'));
-    setTimeout(() => {
-      window.print();
-    }, 300);
+    setTimeout(() => { window.print(); }, 300);
   }
 
   document.getElementById('pdfBtn').addEventListener('click', baixarPDF);
